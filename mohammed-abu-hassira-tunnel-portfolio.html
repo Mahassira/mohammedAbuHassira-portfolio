@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed H. Abu Hassira — Digital Transformation Specialist</title>
+<meta name="description" content="Mohammed H. Abu Hassira — Digital Transformation & Power Platform specialist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A090C;
+    --indigo:#FF4D6D;
+    --cyan:#FFC15E;
+    --violet:#2DD4BF;
+    --text:#FFFFFF;
+    --text-dim:#E8BE6E;
+    --text-faint:#A8813C;
+    --serif:'Poppins', sans-serif;
+    --sans:'Open Sans', -apple-system, sans-serif;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  html{background:var(--bg);}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--sans); font-weight:300;
+    overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  #scene{position:fixed; inset:0; z-index:0; display:block;}
+  .vignette{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(ellipse at center, transparent 35%, rgba(5,5,11,0.72) 100%);
+  }
+  .grain{
+    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  main{position:relative; z-index:5;}
+  section{min-height:100vh; display:flex; align-items:center; padding:0 8vw;}
+
+  .eyebrow{
+    font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cyan);
+    display:flex; align-items:center; gap:12px; margin-bottom:26px;
+  }
+  .eyebrow::before{content:''; width:34px; height:1px; background:linear-gradient(90deg, var(--cyan), transparent);}
+
+  h1,h2{font-family:var(--serif); font-weight:400; letter-spacing:-0.01em; line-height:1.02;}
+
+  /* HERO */
+  .hero{flex-direction:column; align-items:flex-start; justify-content:center;}
+  .hero h1{font-size:clamp(3rem, 9vw, 7.5rem); }
+  .hero h1 span{display:block; font-style:normal; font-size:0.42em; font-family:var(--sans); font-weight:300; letter-spacing:0.01em; color:var(--text-dim); margin-top:18px;}
+  .hero-tags{margin-top:28px; font-size:13.5px; color:var(--text-faint); letter-spacing:0.04em;}
+  .hero-lede{max-width:42ch; font-size:17px; color:var(--text-dim); margin-top:34px; line-height:1.7;}
+  .cta-row{display:flex; gap:18px; margin-top:48px; flex-wrap:wrap;}
+  .cta{
+    position:relative; padding:16px 30px; font-size:14px; letter-spacing:0.02em; border-radius:100px;
+    isolation:isolate; overflow:hidden; transition:transform .4s cubic-bezier(.19,1,.22,1);
+  }
+  .cta:hover{transform:translateY(-2px);}
+  .cta-primary{color:#050510; font-weight:500;}
+  .cta-primary::before{
+    content:''; position:absolute; inset:0; z-index:-1;
+    background:linear-gradient(120deg, #FFD98A, var(--cyan));
+  }
+  .cta-ghost{border:1px solid rgba(255,255,255,0.14); color:var(--text);}
+  .cta-ghost:hover{border-color:var(--cyan); background:rgba(255,193,94,0.08);}
+  .scroll-hint{
+    position:absolute; bottom:5vh; left:8vw; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--text-faint); display:flex; align-items:center; gap:10px;
+  }
+  .scroll-hint i{width:1px; height:32px; background:linear-gradient(var(--cyan), transparent); display:block; animation:sh 2.2s infinite;}
+  @keyframes sh{0%,100%{opacity:0.15;}50%{opacity:1;}}
+
+  /* GENERIC EDITORIAL PANEL */
+  .panel{flex-direction:column; align-items:flex-start; max-width:1180px; margin:0 auto; width:100%;}
+  .panel-right{align-items:flex-end; text-align:right;}
+  .panel h2{font-size:clamp(2.2rem, 5.5vw, 4.4rem); max-width:14ch;}
+  .panel-lede{max-width:48ch; color:var(--text-dim); font-size:16px; margin-top:24px; line-height:1.75;}
+  .reveal-el{opacity:0; transform:translateY(30px);}
+
+  /* JOURNEY */
+  .journey-list{margin-top:56px; display:flex; flex-direction:column; gap:0; width:100%; max-width:640px;}
+  .journey-row{display:flex; justify-content:space-between; align-items:baseline; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .journey-row b{font-family:var(--serif); font-size:1.3rem; font-weight:400;}
+  .journey-row span{font-size:12.5px; color:var(--text-faint);}
+
+  /* CAPABILITIES */
+  .cap-list{margin-top:56px; width:100%;}
+  .cap-row{
+    display:grid; grid-template-columns:64px 1fr 1fr; gap:30px; align-items:baseline;
+    padding:26px 0; border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .cap-row:last-child{border-bottom:1px solid rgba(255,255,255,0.08);}
+  .cap-num{font-family:var(--serif); color:var(--text-faint); font-size:1.1rem;}
+  .cap-row h3{font-family:var(--sans); font-weight:500; font-size:1.15rem; color:var(--text);}
+  .cap-row p{font-size:14px; color:var(--text-dim); max-width:38ch;}
+
+  /* PROJECTS */
+  .proj{width:100%; margin-top:40px;}
+  .proj-row{
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; padding:54px 0; border-top:1px solid rgba(255,255,255,0.08);
+    align-items:center;
+  }
+  .proj-row:last-child{border-bottom:1px solid rgba(255,255,255,0.08);}
+  .proj-tag{font-size:12px; color:var(--text-faint); letter-spacing:0.06em; text-transform:uppercase;}
+  .proj-row h3{font-family:var(--serif); font-weight:400; font-size:1.9rem; margin:12px 0 16px;}
+  .proj-row p{color:var(--text-dim); font-size:14.5px; max-width:44ch; line-height:1.7;}
+  .proj-stat{font-family:var(--serif); font-size:3.2rem; color:var(--cyan);}
+  .proj-stat-label{font-size:13px; color:var(--text-dim); margin-top:8px; max-width:22ch;}
+
+  /* STACK */
+  .stack-row{margin-top:56px; display:flex; flex-wrap:wrap; gap:14px; max-width:760px;}
+  .stack-chip{
+    font-size:13px; padding:10px 20px; border:1px solid rgba(255,255,255,0.12); border-radius:100px; color:var(--text-dim);
+    transition:all .35s;
+  }
+  .stack-chip:hover{border-color:var(--cyan); color:var(--text); background:rgba(255,193,94,0.08);}
+
+  /* EXPERIENCE */
+  .exp-row{
+    display:grid; grid-template-columns:120px 1fr; gap:30px; padding:22px 0; border-top:1px solid rgba(255,255,255,0.08); width:100%;
+  }
+  .exp-row:last-child{border-bottom:1px solid rgba(255,255,255,0.08);}
+  .exp-row span{font-size:12.5px; color:var(--text-faint); padding-top:4px;}
+  .exp-row h4{font-weight:500; font-size:16px;}
+  .exp-row em{font-style:normal; color:var(--cyan); font-size:13px; display:block; margin-top:3px;}
+
+  /* FINAL CTA */
+  .final{flex-direction:column; align-items:flex-start; text-align:left;}
+  .final h2{font-size:clamp(2.6rem, 7.5vw, 5.6rem); max-width:14ch;}
+  .final h2 em{color:var(--cyan); font-style:normal;}
+  .final p{max-width:44ch; color:var(--text-dim); font-size:16.5px; margin-top:28px; line-height:1.7;}
+  footer{
+    position:relative; z-index:5; padding:60px 8vw 40px; display:flex; justify-content:space-between;
+    align-items:flex-end; flex-wrap:wrap; gap:24px; border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .foot-name{font-family:var(--serif); font-size:1.3rem;}
+  .foot-links{display:flex; gap:26px; font-size:13.5px; color:var(--text-dim);}
+  .foot-links a:hover{color:var(--cyan);}
+
+  @media (max-width:820px){
+    section{padding:0 7vw;}
+    .cap-row{grid-template-columns:1fr; gap:8px;}
+    .proj-row{grid-template-columns:1fr; gap:22px;}
+    .exp-row{grid-template-columns:1fr; gap:6px;}
+    .panel-right{align-items:flex-start; text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="scene"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<main>
+
+  <section class="hero">
+    <div class="eyebrow">Digital transformation &amp; business systems</div>
+    <h1>Mohammed<br>Abu Hassira<span>Digital Transformation Specialist — Power Platform · Data &amp; Business Systems · Humanitarian Operations Technology · Digital Growth</span></h1>
+    <p class="hero-lede">I design practical digital systems that automate manual work, organize data, and give organizations clearer visibility into their operations.</p>
+    <div class="cta-row">
+      <a href="#work" class="cta cta-primary">See the work</a>
+      <a href="#contact" class="cta cta-ghost">Start a project</a>
+    </div>
+    <div class="scroll-hint"><i></i>Scroll to enter</div>
+  </section>
+
+  <section id="journey">
+    <div class="panel">
+      <div class="eyebrow reveal-el">The journey</div>
+      <h2 class="reveal-el">Ten years moving through the tunnel of one career.</h2>
+      <div class="journey-list">
+        <div class="journey-row reveal-el"><b>Media</b><span>AFP · Al-Muntada</span></div>
+        <div class="journey-row reveal-el"><b>Communications</b><span>International Medical Corps</span></div>
+        <div class="journey-row reveal-el"><b>Humanitarian operations</b><span>Norwegian Refugee Council</span></div>
+        <div class="journey-row reveal-el"><b>Digital systems</b><span>Power Apps · Power Automate</span></div>
+        <div class="journey-row reveal-el"><b>Data &amp; intelligence</b><span>Power BI · Power Query</span></div>
+        <div class="journey-row reveal-el"><b>Digital growth</b><span>Meta Ads · Google Ads</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="capabilities">
+    <div class="panel">
+      <div class="eyebrow reveal-el">Capabilities</div>
+      <h2 class="reveal-el">Systems for the operations that never stop moving.</h2>
+      <div class="cap-list">
+        <div class="cap-row reveal-el"><div class="cap-num">01</div><h3>Power Platform builds</h3><p>Power Apps, Power Automate, Power BI, Dataverse and Power Pages, built end to end.</p></div>
+        <div class="cap-row reveal-el"><div class="cap-num">02</div><h3>Operations &amp; logistics tech</h3><p>Movement tracking, vehicle management, asset tracking and field systems.</p></div>
+        <div class="cap-row reveal-el"><div class="cap-num">03</div><h3>Data &amp; business intelligence</h3><p>Dashboards, reporting and operational insight built on clean data.</p></div>
+        <div class="cap-row reveal-el"><div class="cap-num">04</div><h3>Humanitarian technology</h3><p>Emergency communication and field reporting tools for complex environments.</p></div>
+        <div class="cap-row reveal-el"><div class="cap-num">05</div><h3>Digital growth</h3><p>Meta &amp; Google Ads, lead generation, campaign optimization.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="panel">
+      <div class="eyebrow reveal-el">Selected work</div>
+      <h2 class="reveal-el">Three systems. Three real problems solved.</h2>
+      <div class="proj">
+        <div class="proj-row">
+          <div>
+            <div class="proj-tag reveal-el">ORCA for Shipping &amp; Delivery</div>
+            <h3 class="reveal-el">Movement &amp; vehicle management</h3>
+            <p class="reveal-el">Fleet operations were tracked manually. Built an integrated Power Apps &amp; Power Automate system for requests, approvals and vehicle assignment — giving managers real visibility for the first time.</p>
+          </div>
+          <div class="reveal-el">
+            <div class="proj-stat">Live</div>
+            <div class="proj-stat-label">fleet visibility, from paper trail to dashboard</div>
+          </div>
+        </div>
+        <div class="proj-row">
+          <div>
+            <div class="proj-tag reveal-el">ORCA for Shipping &amp; Delivery</div>
+            <h3 class="reveal-el">HR &amp; finance automation</h3>
+            <p class="reveal-el">Recruitment, onboarding, leave and payroll were largely manual. Rebuilt as an integrated Power Platform workflow aligned with Egyptian labor law.</p>
+          </div>
+          <div class="reveal-el">
+            <div class="proj-stat">40%</div>
+            <div class="proj-stat-label">reduction in manual processing time</div>
+          </div>
+        </div>
+        <div class="proj-row">
+          <div>
+            <div class="proj-tag reveal-el">Norwegian Refugee Council</div>
+            <h3 class="reveal-el">QR-based asset tracking</h3>
+            <p class="reveal-el">Field equipment was hard to monitor and losses were common. A QR code system tied every asset to a scannable record.</p>
+          </div>
+          <div class="reveal-el">
+            <div class="proj-stat">↓</div>
+            <div class="proj-stat-label">fewer losses, faster equipment audits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="panel panel-right">
+      <div class="eyebrow reveal-el">The stack</div>
+      <h2 class="reveal-el">People, apps, automation, data, intelligence.</h2>
+      <div class="stack-row">
+        <div class="stack-chip reveal-el">Power Apps</div>
+        <div class="stack-chip reveal-el">Power Automate</div>
+        <div class="stack-chip reveal-el">Power BI</div>
+        <div class="stack-chip reveal-el">Dataverse</div>
+        <div class="stack-chip reveal-el">Power Pages</div>
+        <div class="stack-chip reveal-el">SharePoint</div>
+        <div class="stack-chip reveal-el">Power Query</div>
+        <div class="stack-chip reveal-el">Microsoft 365</div>
+        <div class="stack-chip reveal-el">Azure</div>
+        <div class="stack-chip reveal-el">SQL</div>
+        <div class="stack-chip reveal-el">Python</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="panel">
+      <div class="eyebrow reveal-el">Experience</div>
+      <h2 class="reveal-el">Where the systems were built.</h2>
+      <div style="margin-top:50px; width:100%; max-width:760px;">
+        <div class="exp-row reveal-el"><span>2025 — Present</span><div><h4>Operations Digital Transformation Specialist</h4><em>ORCA for Shipping &amp; Delivery, Egypt</em></div></div>
+        <div class="exp-row reveal-el"><span>2021 — 2024</span><div><h4>Country Communications Officer</h4><em>International Medical Corps, oPt</em></div></div>
+        <div class="exp-row reveal-el"><span>2021 — 2024</span><div><h4>Logistician Support</h4><em>Norwegian Refugee Council, Gaza Strip</em></div></div>
+        <div class="exp-row reveal-el"><span>2009 — 2010</span><div><h4>Public Relations Officer</h4><em>Al-Muntada Satellite Channel</em></div></div>
+        <div class="exp-row reveal-el"><span>2007 — 2009</span><div><h4>Breaking News Writer</h4><em>Agence France-Presse</em></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="contact">
+    <div class="eyebrow reveal-el">Start a project</div>
+    <h2 class="reveal-el">Have an operation that<br>still runs on <em>paper</em>?</h2>
+    <p class="reveal-el">Tell me what's slow, manual, or invisible right now — I'll tell you what a working system for it looks like.</p>
+    <div class="cta-row reveal-el">
+      <a href="mailto:mahassira@outlook.com" class="cta cta-primary">Email mahassira@outlook.com</a>
+      <a href="tel:+201022167209" class="cta cta-ghost">Call +20 102 216 7209</a>
+      <a href="https://linkedin.com/in/mohammedabuhassira" target="_blank" class="cta cta-ghost">View LinkedIn</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-name">Mohammed H. Abu Hassira</div>
+  <div class="foot-links">
+    <a href="mailto:mahassira@outlook.com">Email</a>
+    <a href="tel:+201022167209">+20 102 216 7209</a>
+    <a href="https://linkedin.com/in/mohammedabuhassira" target="_blank">LinkedIn</a>
+    <span id="year" style="color:var(--text-faint);"></span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- THREE.JS PROCEDURAL TUNNEL ---------------- */
+(function(){
+  var canvas = document.getElementById('scene');
+  var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:false, alpha:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0A090C);
+  scene.fog = new THREE.FogExp2(0x0A090C, 0.028);
+
+  var camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 400);
+
+  /* --- curve: a windy path the camera will fly through --- */
+  var isMobile = window.innerWidth < 760;
+  var controlPoints = [];
+  var NUM_CP = 14;
+  for(var i=0;i<NUM_CP;i++){
+    controlPoints.push(new THREE.Vector3(
+      Math.sin(i*0.9)*9,
+      Math.cos(i*0.7)*7,
+      -i*20
+    ));
+  }
+  var curve = new THREE.CatmullRomCurve3(controlPoints);
+  curve.curveType = 'centripetal';
+  var TOTAL_LENGTH = (NUM_CP-1)*20;
+  var TUBE_RADIUS = 7.5;
+  var TUBE_SEGMENTS = isMobile ? 220 : 400;
+
+  /* --- tunnel mesh (wireframe, gradient vertex colors) --- */
+  var tubeGeo = new THREE.TubeGeometry(curve, TUBE_SEGMENTS, TUBE_RADIUS, 10, false);
+  var posAttr = tubeGeo.attributes.position;
+  var uvAttr = tubeGeo.attributes.uv;
+  var colors = new Float32Array(posAttr.count*3);
+  var cIndigo = new THREE.Color(0x222222);
+  var cCyan   = new THREE.Color(0xFFFFFF);
+  var cViolet = new THREE.Color(0x555555);
+  for(var i=0;i<posAttr.count;i++){
+    var t = uvAttr.getX(i);
+    var c = new THREE.Color();
+    if(t < 0.5){ c.copy(cIndigo).lerp(cCyan, t*2); }
+    else { c.copy(cCyan).lerp(cViolet, (t-0.5)*2); }
+    colors[i*3]=c.r; colors[i*3+1]=c.g; colors[i*3+2]=c.b;
+  }
+  tubeGeo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+  var tubeMat = new THREE.MeshBasicMaterial({
+    vertexColors:true, wireframe:true, transparent:true, opacity:0.5,
+    blending:THREE.AdditiveBlending, side:THREE.BackSide, fog:true
+  });
+  var tubeMesh = new THREE.Mesh(tubeGeo, tubeMat);
+  scene.add(tubeMesh);
+
+  /* --- Frenet frames for placing particles perpendicular to the path --- */
+  var frames = curve.computeFrenetFrames(TUBE_SEGMENTS, false);
+  var curvePoints = [];
+  for(var i=0;i<=TUBE_SEGMENTS;i++){ curvePoints.push(curve.getPointAt(i/TUBE_SEGMENTS)); }
+
+  function gradientColor(t){
+    var c = new THREE.Color();
+    if(t < 0.5){ c.copy(cIndigo).lerp(cCyan, t*2); }
+    else { c.copy(cCyan).lerp(cViolet, (t-0.5)*2); }
+    return c;
+  }
+
+  /* --- fine particle field scattered through the tunnel --- */
+  var PARTICLE_COUNT = isMobile ? 1400 : 3200;
+  var pPos = new Float32Array(PARTICLE_COUNT*3);
+  var pCol = new Float32Array(PARTICLE_COUNT*3);
+  for(var i=0;i<PARTICLE_COUNT;i++){
+    var idx = Math.floor(Math.random()*TUBE_SEGMENTS);
+    var base = curvePoints[idx];
+    var normal = frames.normals[idx];
+    var binormal = frames.binormals[idx];
+    var radius = Math.random()*TUBE_RADIUS*0.92;
+    var angle = Math.random()*Math.PI*2;
+    var x = base.x + (normal.x*Math.cos(angle)+binormal.x*Math.sin(angle))*radius;
+    var y = base.y + (normal.y*Math.cos(angle)+binormal.y*Math.sin(angle))*radius;
+    var z = base.z + (normal.z*Math.cos(angle)+binormal.z*Math.sin(angle))*radius;
+    pPos[i*3]=x; pPos[i*3+1]=y; pPos[i*3+2]=z;
+    var col = gradientColor(idx/TUBE_SEGMENTS);
+    pCol[i*3]=col.r; pCol[i*3+1]=col.g; pCol[i*3+2]=col.b;
+  }
+  var pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color', new THREE.BufferAttribute(pCol,3));
+  var pMat = new THREE.PointsMaterial({
+    size:0.14, vertexColors:true, transparent:true, opacity:0.85,
+    blending:THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true
+  });
+  var particles = new THREE.Points(pGeo, pMat);
+  scene.add(particles);
+
+  /* --- sparse, larger additive glow orbs (soft sprite) --- */
+  function makeGlowTexture(){
+    var c = document.createElement('canvas'); c.width=c.height=128;
+    var ctx = c.getContext('2d');
+    var g = ctx.createRadialGradient(64,64,0,64,64,64);
+    g.addColorStop(0,'rgba(255,255,255,1)');
+    g.addColorStop(0.35,'rgba(255,255,255,0.5)');
+    g.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,128,128);
+    return new THREE.CanvasTexture(c);
+  }
+  var glowTex = makeGlowTexture();
+  var GLOW_COUNT = isMobile ? 60 : 130;
+  var gPos = new Float32Array(GLOW_COUNT*3);
+  var gCol = new Float32Array(GLOW_COUNT*3);
+  for(var i=0;i<GLOW_COUNT;i++){
+    var idx = Math.floor(Math.random()*TUBE_SEGMENTS);
+    var base = curvePoints[idx];
+    var normal = frames.normals[idx];
+    var binormal = frames.binormals[idx];
+    var radius = Math.random()*TUBE_RADIUS*0.7;
+    var angle = Math.random()*Math.PI*2;
+    gPos[i*3]  = base.x + (normal.x*Math.cos(angle)+binormal.x*Math.sin(angle))*radius;
+    gPos[i*3+1]= base.y + (normal.y*Math.cos(angle)+binormal.y*Math.sin(angle))*radius;
+    gPos[i*3+2]= base.z + (normal.z*Math.cos(angle)+binormal.z*Math.sin(angle))*radius;
+    var col = gradientColor(idx/TUBE_SEGMENTS);
+    gCol[i*3]=col.r; gCol[i*3+1]=col.g; gCol[i*3+2]=col.b;
+  }
+  var gGeo = new THREE.BufferGeometry();
+  gGeo.setAttribute('position', new THREE.BufferAttribute(gPos,3));
+  gGeo.setAttribute('color', new THREE.BufferAttribute(gCol,3));
+  var gMat = new THREE.PointsMaterial({
+    size:2.2, map:glowTex, vertexColors:true, transparent:true, opacity:0.75,
+    blending:THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true
+  });
+  var glowPoints = new THREE.Points(gGeo, gMat);
+  scene.add(glowPoints);
+
+  /* ---------------- scroll-driven camera through the tunnel ---------------- */
+  var targetProgress = 0, currentProgress = 0;
+  ScrollTrigger.create({
+    trigger: document.body,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: true,
+    onUpdate: function(self){ targetProgress = self.progress; }
+  });
+
+  /* ---------------- pointer parallax ---------------- */
+  var mouse = {x:0, y:0}, mouseSmooth = {x:0, y:0};
+  window.addEventListener('pointermove', function(e){
+    mouse.x = (e.clientX/window.innerWidth - 0.5) * 2;
+    mouse.y = (e.clientY/window.innerHeight - 0.5) * 2;
+  });
+
+  function onResize(){
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+  window.addEventListener('resize', onResize);
+
+  var clock = new THREE.Clock();
+  function animate(){
+    var dt = clock.getDelta();
+    currentProgress += (targetProgress - currentProgress) * (reduceMotion ? 1 : 0.065);
+    mouseSmooth.x += (mouse.x - mouseSmooth.x) * 0.05;
+    mouseSmooth.y += (mouse.y - mouseSmooth.y) * 0.05;
+
+    var t = Math.min(Math.max(currentProgress, 0), 0.995);
+    var pos = curve.getPointAt(t);
+    var lookT = Math.min(t + 0.006, 1);
+    var lookAt = curve.getPointAt(lookT);
+
+    camera.position.copy(pos);
+    camera.lookAt(lookAt);
+    camera.rotateZ(mouseSmooth.x*0.05);
+    camera.position.x += mouseSmooth.x*0.9;
+    camera.position.y -= mouseSmooth.y*0.6;
+
+    var time = clock.getElapsedTime();
+    particles.rotation.z = Math.sin(time*0.05)*0.02;
+    glowPoints.material.opacity = 0.6 + Math.sin(time*0.8)*0.15;
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ---------------- GSAP text reveals ---------------- */
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll('section').forEach(function(sec){
+  var els = sec.querySelectorAll('.reveal-el');
+  if(!els.length) return;
+  gsap.fromTo(els, {opacity:0, y:34}, {
+    opacity:1, y:0, duration:1, ease:'power3.out', stagger:0.07,
+    scrollTrigger:{trigger:sec, start:'top 72%', toggleActions:'play none none reverse'}
+  });
+});
+gsap.fromTo('.hero h1, .hero-lede, .hero-tags, .cta-row', {opacity:0, y:26}, {opacity:1, y:0, duration:1.1, ease:'power3.out', stagger:0.1, delay:0.2});
+</script>
+</body>
+</html>
