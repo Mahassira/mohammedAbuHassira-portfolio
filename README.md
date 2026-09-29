@@ -1,4 +1,4 @@
-# Mohammed Abu Hassira — Portfolio
+# Mohammed H. Abu Hassira — Portfolio
 
 This is my personal portfolio site. One page, no backend, no build step — just an HTML file with a Three.js tunnel running behind the content and GSAP handling the scroll animations.
 
